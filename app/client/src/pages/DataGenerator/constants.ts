@@ -5,6 +5,7 @@ export const MODEL_PROVIDER_LABELS = {
   [ModelProviders.CAII]: 'Cloudera AI Inference Service',
   [ModelProviders.GOOGLE_GEMINI]: 'Google Gemini',
   [ModelProviders.AZURE_OPENAI]: 'Azure OpenAI',
+  [ModelProviders.OPENAI_COMPAT]: 'OpenAI Compatible',
 };
 
 export const MIN_SEED_INSTRUCTIONS = 1
@@ -28,6 +29,7 @@ export const WORKFLOW_OPTIONS = [
 export const MODEL_TYPE_OPTIONS: ModelProvidersDropdownOpts = [
     { label: MODEL_PROVIDER_LABELS[ModelProviders.BEDROCK], value: ModelProviders.BEDROCK},
     { label: MODEL_PROVIDER_LABELS[ModelProviders.CAII], value: ModelProviders.CAII },
+    { label: MODEL_PROVIDER_LABELS[ModelProviders.OPENAI_COMPAT], value: ModelProviders.OPENAI_COMPAT },
 ];
 
 
