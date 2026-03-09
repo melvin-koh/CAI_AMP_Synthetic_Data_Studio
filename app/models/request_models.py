@@ -255,6 +255,8 @@ class CustomPromptRequest(BaseModel):
     
     inference_type :Optional[str] = "aws_bedrock"
     caii_endpoint: Optional[str] = None
+    openai_endpoint: Optional[str] = "https://api.openai.com/v1/"
+    openai_apikey: Optional[str] = None
     example_path: Optional[str] = None
     example: Optional[List[Dict[str, Any]]] = Field(
         default=None,
