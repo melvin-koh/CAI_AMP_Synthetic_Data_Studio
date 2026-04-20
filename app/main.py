@@ -725,7 +725,8 @@ async def create_custom_prompt(request: CustomPromptRequest, request_id = None):
     try:
         bedrock_client =   get_bedrock_client()
         model_params = ModelParameters()
-        model_handler = create_handler(request.model_id, bedrock_client, model_params, inference_type = request.inference_type, caii_endpoint =  request.caii_endpoint, custom_p = True)
+        #model_handler = create_handler(request.model_id, bedrock_client, model_params, inference_type = request.inference_type, caii_endpoint =  request.caii_endpoint, custom_p = True)
+        model_handler = create_handler(request.model_id, bedrock_client, model_params, inference_type = request.inference_type, caii_endpoint =  request.caii_endpoint, custom_p = True, openai_compatible_endpoint = request.openai_compatible_endpoint, openai_apikey = request.openai_apikey)
         prompt = PromptBuilder.build_custom_prompt(
                 model_id=request.model_id,
                 custom_prompt=request.custom_prompt,

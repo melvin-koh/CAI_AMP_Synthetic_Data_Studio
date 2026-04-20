@@ -492,6 +492,8 @@ class SynthesisService:
                 'model_id': request.model_id,
                 'inference_type': request.inference_type,
                 'caii_endpoint': request.caii_endpoint,
+                'openai_compatible_endpoint': request.openai_compatible_endpoint,
+                'openai_apikey': request.openai_apikey,
                 'use_case': request.use_case,
                 'final_prompt': custom_prompt_str,
                 'model_parameters': json.dumps(model_params.model_dump()) if model_params else None,

@@ -124,6 +124,7 @@ class SynthesisRequest(BaseModel):
     inference_type: Optional[str] = "aws_bedrock"
     caii_endpoint: Optional[str] = None
     openai_compatible_endpoint: Optional[str] = None
+    openai_apikey: Optional[str] = None
     topics: Optional[List[str]] = None
     doc_paths: Optional[List[str]] = None
     input_path: Optional[List[str]] = None
@@ -255,7 +256,7 @@ class CustomPromptRequest(BaseModel):
     
     inference_type :Optional[str] = "aws_bedrock"
     caii_endpoint: Optional[str] = None
-    openai_endpoint: Optional[str] = "https://api.openai.com/v1/"
+    openai_compatible_endpoint: Optional[str] = None
     openai_apikey: Optional[str] = None
     example_path: Optional[str] = None
     example: Optional[List[Dict[str, Any]]] = Field(

@@ -28,7 +28,7 @@ class UnifiedModelHandler:
     
     GEMINI_TIMEOUT = 3600.0  # 1 hour timeout for Gemini
     
-    def __init__(self, model_id: str, bedrock_client=None, model_params: Optional[ModelParameters] = None, inference_type = "aws_bedrock", caii_endpoint:Optional[str]=None, custom_p = False):
+    def __init__(self, model_id: str, bedrock_client=None, model_params: Optional[ModelParameters] = None, inference_type = "aws_bedrock", caii_endpoint:Optional[str]=None, custom_p = False, openai_compatible_endpoint:Optional[str]=None, openai_apikey:Optional[str]=None):
         """
         Initialize the model handler
         
@@ -44,6 +44,8 @@ class UnifiedModelHandler:
         self.inference_type = inference_type
         self.caii_endpoint = caii_endpoint
         self.custom_p = custom_p
+        self.openai_compatible_endpoint = openai_compatible_endpoint
+        self.openai_apikey = openai_apikey
         
         # AWS Step Functions style retry config
         self.MAX_RETRIES = 2
@@ -352,12 +354,14 @@ class UnifiedModelHandler:
             from openai import OpenAI
             
             # Get API key from environment variable (only credential needed)
-            api_key = os.getenv('OpenAI_Endpoint_Compatible_Key')
+            #api_key = os.getenv('OpenAI_Endpoint_Compatible_Key')
+            api_key = self.openai_apikey
             if not api_key:
                 raise ModelHandlerError("OpenAI_Endpoint_Compatible_Key environment variable not set", 500)
             
             # Base URL comes from caii_endpoint parameter (passed during initialization)
-            openai_compatible_endpoint = self.caii_endpoint
+            #openai_compatible_endpoint = self.caii_endpoint
+            openai_compatible_endpoint = self.openai_compatible_endpoint
             if not openai_compatible_endpoint:
                 raise ModelHandlerError("OpenAI compatible endpoint not provided", 500)
             
@@ -483,7 +487,9 @@ class UnifiedModelHandler:
         except Exception as e:
             raise ModelHandlerError(f"CAII request failed: {str(e)}", status_code=500)
 
-def create_handler(model_id: str, bedrock_client=None, model_params: Optional[ModelParameters] = None, inference_type:Optional[str] = "aws_bedrock", caii_endpoint:Optional[str]=None, custom_p = False) -> UnifiedModelHandler:
+#def create_handler(model_id: str, bedrock_client=None, model_params: Optional[ModelParameters] = None, inference_type:Optional[str] = "aws_bedrock", caii_endpoint:Optional[str]=None, custom_p = False) -> UnifiedModelHandler:
+
+def create_handler(model_id: str, bedrock_client=None, model_params: Optional[ModelParameters] = None, inference_type:Optional[str] = "aws_bedrock", caii_endpoint:Optional[str]=None, custom_p = False, openai_compatible_endpoint:Optional[str]=None, openai_apikey:Optional[str]=None) -> UnifiedModelHandler:
     """
     Factory function to create model handler
     
@@ -495,4 +501,5 @@ def create_handler(model_id: str, bedrock_client=None, model_params: Optional[Mo
     Returns:
         UnifiedModelHandler instance
     """
-    return UnifiedModelHandler(model_id, bedrock_client, model_params, inference_type, caii_endpoint, custom_p)
+    #return UnifiedModelHandler(model_id, bedrock_client, model_params, inference_type, caii_endpoint, custom_p)
+    return UnifiedModelHandler(model_id, bedrock_client, model_params, inference_type, caii_endpoint, custom_p, openai_compatible_endpoint, openai_apikey)
