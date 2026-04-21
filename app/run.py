@@ -9,5 +9,6 @@ if __name__ == "__main__":
       "main:app",
       host="127.0.0.1",
       port=port,
-      reload=True
+      reload=True,
+      access_log=False
 )

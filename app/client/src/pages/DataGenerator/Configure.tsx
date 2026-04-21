@@ -47,6 +47,7 @@ export const WORKFLOW_OPTIONS = [
 export const MODEL_TYPE_OPTIONS: ModelProvidersDropdownOpts = [
     { label: MODEL_PROVIDER_LABELS[ModelProviders.BEDROCK], value: ModelProviders.BEDROCK},
     { label: MODEL_PROVIDER_LABELS[ModelProviders.CAII], value: ModelProviders.CAII },
+    { label: MODEL_PROVIDER_LABELS[ModelProviders.OPENAI_COMPAT], value: ModelProviders.OPENAI_COMPAT },
 ];
 
 const Configure: FunctionComponent = () => {
@@ -197,9 +198,15 @@ const Configure: FunctionComponent = () => {
                     tooltip={formData?.inference_type === ModelProviders.CAII ? `You can find you Cloudera AI Inference model ID in the Model Endpoint Details page` : undefined}
                     labelCol={labelCol}
                 >
-                    {formData?.inference_type === ModelProviders.CAII ? (
+                    {formData?.inference_type === ModelProviders.CAII && (
                         <Input placeholder={'Enter Cloudera AI Inference Model ID'}/>
-                    ) : (
+                    )}
+                    
+                    {formData?.inference_type === ModelProviders.OPENAI_COMPAT && (
+                        <Input placeholder={'Enter OpenAI Model ID'}/>
+                    )}
+                    
+                    {formData?.inference_type === ModelProviders.BEDROCK && (
                         <Select placeholder={'Select a Model'} notFoundContent={'You must select a Model Provider before selecting a Model'}>
                             {!isEmpty(data?.models) && data?.models[ModelProviders.BEDROCK]?.map((model, i) =>
                                 <Select.Option key={`${model}-${i}`} value={model}>
@@ -208,8 +215,8 @@ const Configure: FunctionComponent = () => {
                             )}
                         </Select>
                     )}
-
                 </Form.Item>
+
                 {formData?.inference_type === ModelProviders.CAII && (
                     <>
                         <Form.Item
@@ -240,6 +247,38 @@ const Configure: FunctionComponent = () => {
 
                 )}
                 
+                
+                {formData?.inference_type === ModelProviders.OPENAI_COMPAT && (
+                    <>
+                        <Form.Item
+                            name="openai_compatible_endpoint"
+                            label={'OpenAI Inference Endpoint'}
+                            rules={[
+                                { required: true },
+                                // {
+                                //     type: 'url',
+                                //     message: 'Endpoint must be a valid url'
+                                // }
+                            ]}
+                            tooltip={'The inference enpoint of your OpenAI compatible endpoint'}
+                            labelCol={labelCol}
+                        >
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="openai_apikey"
+                            label={'API Key'}
+                            rules={[{ required: true }]}
+                            tooltip={'API key to authenticate to the endpoint'}
+                            labelCol={labelCol}
+                        >
+                            <Input />
+                        </Form.Item>
+                    </>
+
+                )}
+
                 <Form.Item
                     name='workflow_type'
                     label='Workflow'
