@@ -104,7 +104,7 @@ const ReevaluatorPage: React.FC = () => {
         <>
             <Result
                 status="error"
-                title="Dataet Re-evaluation Failed"
+                title="Dataset Re-evaluation Failed"
                 subTitle={errorMessage}
                 extra={
                     <Button type="primary" href={`/evaluator/reevaluate/${evaluate_file_name}`}>

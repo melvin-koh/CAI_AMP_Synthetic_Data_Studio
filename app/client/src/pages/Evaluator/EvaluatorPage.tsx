@@ -109,7 +109,7 @@ const onSubmit = async () => {
           <>
               <Result
                   status="error"
-                  title="Dataet Evaluation Failed"
+                  title="Dataset Evaluation Failed"
                   subTitle={errorMessage}
                   extra={
                       <Button type="primary" href={`/evaluator/create/${generate_file_name}`}>
