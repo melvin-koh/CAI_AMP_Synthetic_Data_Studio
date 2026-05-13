@@ -35,7 +35,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-*.ipynb_checkpoints
+.ipynb_checkpoints/
 
 # Workbench runtime
 .Rprofile
@@ -97,3 +97,5 @@ Raw_Web_Visit_Sample.csv
 Raw_Web_Visit_Sample.csv
 app/test_models.py
 credit_card_example.json
+
+synthetic-data-studio/
