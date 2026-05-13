@@ -357,15 +357,12 @@ class UnifiedModelHandler:
             #api_key = os.getenv('OpenAI_Endpoint_Compatible_Key')
             api_key = self.openai_apikey
             if not api_key:
-                raise ModelHandlerError("OpenAI_Endpoint_Compatible_Key environment variable not set", 500)
+                raise ModelHandlerError("API key not provided", 500)
 
             # Base URL comes from caii_endpoint parameter (passed during initialization)
             openai_compatible_endpoint = self.openai_compatible_endpoint
             if not openai_compatible_endpoint:
                 raise ModelHandlerError("OpenAI compatible endpoint not provided", 500)
-                
-            print(f"##### DEBUG: api_key={self.openai_apikey}")
-            print(f"##### DEBUG: base_url={self.openai_compatible_endpoint}")
             
             # Configure timeout for OpenAI compatible client (same as OpenAI v1.57.2)
             timeout_config = httpx.Timeout(

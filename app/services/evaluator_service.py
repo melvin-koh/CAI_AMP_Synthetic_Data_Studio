@@ -247,9 +247,11 @@ class EvaluatorService:
                 self.bedrock_client,
                 model_params=model_params,
                 inference_type=request.inference_type,
-                caii_endpoint=request.caii_endpoint
+                caii_endpoint=request.caii_endpoint,
+                openai_compatible_endpoint=request.openai_compatible_endpoint,
+                openai_apikey=request.openai_apikey
             )
-            
+
             self.logger.info(f"Loading data rows from: {request.import_path}")
             with open(request.import_path, 'r') as file:
                 data = json.load(file)

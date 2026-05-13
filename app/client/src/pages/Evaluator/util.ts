@@ -237,8 +237,16 @@ export enum MODE {
 export const FORM_FIELD_META_DATA = {
     caii_endpoint: {
         label: 'Cloudera AI Inference Endpoint',
-        tooltip: 'The inference enpoint of your model deployed in Cloudera AI Inference Service',
+        tooltip: 'The inference endpoint of your model deployed in Cloudera AI Inference Service',
         doc_link: 'https://docs.cloudera.com/machine-learning/cloud/ai-inference/topics/ml-caii-use-caii.html'
+    },
+    openai_compatible_endpoint: {
+        label: 'OpenAI Compatible Endpoint',
+        tooltip: 'The OpenAI compatible inference endpoint of your privately hosted model'
+    },
+    openai_apikey: {
+        label: 'API Key',
+        tooltip: 'API key to authenticate to the inference endpoint'
     }
 }
 

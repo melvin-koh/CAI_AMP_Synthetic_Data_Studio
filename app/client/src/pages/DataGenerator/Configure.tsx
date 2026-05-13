@@ -270,10 +270,10 @@ const Configure: FunctionComponent = () => {
                             name="openai_apikey"
                             label={'API Key'}
                             rules={[{ required: true }]}
-                            tooltip={'API key to authenticate to the endpoint'}
+                            tooltip={'API key to authenticate to the inference endpoint'}
                             labelCol={labelCol}
                         >
-                            <Input />
+                            <Input.Password placeholder='Enter OpenAI API Key' />
                         </Form.Item>
                     </>
 

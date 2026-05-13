@@ -649,8 +649,7 @@ async def evaluate_freeform(request: EvaluationRequest):
     if request.inference_type == "CAII":
         caii_endpoint = request.caii_endpoint
         caii_check(caii_endpoint)
-        
-   
+
     is_demo = getattr(request, 'is_demo', True)
     if is_demo:
         return evaluator_service.evaluate_row_data(request, request_id=request_id)

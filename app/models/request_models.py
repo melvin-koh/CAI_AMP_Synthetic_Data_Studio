@@ -211,6 +211,8 @@ class EvaluationRequest(BaseModel):
     is_demo:bool = True
     inference_type :Optional[str] = "aws_bedrock"
     caii_endpoint: Optional[str] = None
+    openai_compatible_endpoint: Optional[str] = None
+    openai_apikey: Optional[str] = None
     examples: Optional[List[Example_eval]] = Field(default=None)
     custom_prompt: Optional[str] = None 
     display_name: Optional[str] = None 

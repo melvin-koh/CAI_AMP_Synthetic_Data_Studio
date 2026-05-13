@@ -152,19 +152,51 @@ const EvaluateDataset: React.FC<Props> = ({ form, loading, modelsMap, dataset, e
                     shouldUpdate
                 >
 
-                    {selectedInferenceType !== ModelProviders.CAII ? 
+                    {(selectedInferenceType === ModelProviders.CAII || selectedInferenceType === ModelProviders.OPENAI_COMPAT) ?
+                      <Input placeholder={
+                        selectedInferenceType === ModelProviders.CAII 
+                          ? 'Enter Cloudera AI Inference Model ID' 
+                          : 'Enter Open AI Model ID'
+                      }/>
+                      :
                       <Select notFoundContent={'You must select a Model Provider before selecting a Model'}>
                         {models.map((model, i) => 
                             <Select.Option key={`${model}-${i}`} value={model}>
                                 {model}
                             </Select.Option>
                         )}
-                      </Select> 
-                      :
-                      <Input placeholder={'Enter Cloudera AI Inference Model ID'}/>
+                      </Select>
                     }
-                    
+
                 </Form.Item>
+                  {selectedInferenceType === ModelProviders.OPENAI_COMPAT && (
+                    <>
+                      <Form.Item
+                        name="openai_compatible_endpoint"
+                        label={FORM_FIELD_META_DATA.openai_compatible_endpoint.label}
+                        rules={[
+                            { required: true },
+                            {
+                                type: 'url',
+                                message: 'Endpoint must be a valid url'
+                            }
+                        ]}
+                        tooltip={FORM_FIELD_META_DATA.openai_compatible_endpoint.tooltip}
+                        >
+                          <Input />
+                      </Form.Item>
+
+                      <Form.Item
+                        name="openai_apikey"
+                        label={FORM_FIELD_META_DATA.openai_apikey.label}
+                        rules={[{ required: true }]}
+                        tooltip={FORM_FIELD_META_DATA.openai_apikey.tooltip}
+                          >
+                          <Input.Password placeholder='Enter OpenAI API Key' />
+                      </Form.Item>
+                    </>
+                )}
+
                 {selectedInferenceType === ModelProviders.CAII &&
                       <Form.Item
                         name="caii_endpoint"
