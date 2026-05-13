@@ -1153,7 +1153,7 @@ class DatabaseManager:
             raise
 
 
-    def delete_generate_data(self,file_name:str, file_path: Optional[str] = None ):
+    def delete_generate_data(self,file_name:str, file_path: Optional[str] = None, id:str = None):
         
         try:
             if file_path and os.path.exists(file_path):
@@ -1162,17 +1162,23 @@ class DatabaseManager:
             with self.get_connection() as conn:
                 conn.execute("BEGIN IMMEDIATE")
                 cursor = conn.cursor()
-                cursor.execute(
-                    "Delete from generation_metadata  WHERE generate_file_name = ?",
-                    (file_name,)
-                )
+                if id:
+                    cursor.execute(
+                        "Delete from generation_metadata  WHERE id = ?",
+                        (id,)
+                    )
+                else:
+                    cursor.execute(
+                        "Delete from generation_metadata  WHERE generate_file_name = ?",
+                        (file_name,)
+                    )
                 conn.commit()
                 
         except Exception as e:
             print(f"Error deleting generation metadata: {str(e)}")
             raise
 
-    def delete_evaluate_data(self,file_name:str, file_path: Optional[str] = None):
+    def delete_evaluate_data(self,file_name:str, file_path: Optional[str] = None, id:str = None):
        
         try:
             if file_path and os.path.exists(file_path):
@@ -1182,10 +1188,16 @@ class DatabaseManager:
             with self.get_connection() as conn:
                 conn.execute("BEGIN IMMEDIATE")
                 cursor = conn.cursor()
-                cursor.execute(
-                    "Delete from evaluation_metadata  WHERE evaluate_file_name = ?",
-                    (file_name,)
-                )
+                if id:
+                    cursor.execute(
+                        "Delete from evaluation_metadata  WHERE id = ?",
+                        (id,)
+                    )
+                else:
+                    cursor.execute(
+                        "Delete from evaluation_metadata  WHERE evaluate_file_name = ?",
+                        (file_name,)
+                    )
                 conn.commit()
                 
         except Exception as e:
