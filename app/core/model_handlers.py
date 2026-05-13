@@ -353,10 +353,11 @@ class UnifiedModelHandler:
             import httpx
             from openai import OpenAI
             
-            # Get API key from environment variable (only credential needed)
-            #api_key = os.getenv('OpenAI_Endpoint_Compatible_Key')
-            api_key = self.openai_apikey
-            if not api_key:
+            if self.openai_apikey:
+                api_key = self.openai_apikey
+            elif os.getenv('OpenAI_Endpoint_Compatible_Key'):
+                api_key = os.getenv('OpenAI_Endpoint_Compatible_Key')
+            else:
                 raise ModelHandlerError("API key not provided", 500)
 
             # Base URL comes from caii_endpoint parameter (passed during initialization)
